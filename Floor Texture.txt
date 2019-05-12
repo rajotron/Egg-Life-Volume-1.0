@@ -1,0 +1,97 @@
+static GLfloat floorVertices[4][3] = {
+  { -20.0, 0.0, 20.0 },
+  { 20.0, 0.0, 20.0 },
+  { 20.0, 0.0, -20.0 },
+  { -20.0, 0.0, -20.0 },
+};
+static char *circles[] = {
+  "....xxxx........",
+  "..xxxxxxxx......",
+  ".xxxxxxxxxx.....",
+  ".xxx....xxx.....",
+  "xxx......xxx....",
+  "xxx......xxx....",
+  "xxx......xxx....",
+  "xxx......xxx....",
+  ".xxx....xxx.....",
+  ".xxxxxxxxxx.....",
+  "..xxxxxxxx......",
+  "....xxxx........",
+  "................",
+  "................",
+  "................",
+  "................",
+};
+
+static void
+makeFloorTexture(void)
+{
+  GLubyte floorTexture[16][16][3];
+  GLubyte *loc;
+  int s, t;
+
+  /* Setup RGB image for the texture. */
+  loc = (GLubyte*) floorTexture;
+  for (t = 0; t < 16; t++) {
+    for (s = 0; s < 16; s++) {
+      if (circles[t][s] == 'x') {
+	/* Nice green. */
+        loc[0] = 0x1f;
+        loc[1] = 0x8f;
+        loc[2] = 0x1f;
+      } else {
+	/* Light gray. */
+        loc[0] = 0xaa;
+        loc[1] = 0xaa;
+        loc[2] = 0xaa;
+      }
+      loc += 3;
+    }
+  }
+
+  glPixelStorei(GL_UNPACK_ALIGNMENT, 1);
+
+  if (useMipmaps) {
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER,
+      GL_LINEAR_MIPMAP_LINEAR);
+    gluBuild2DMipmaps(GL_TEXTURE_2D, 3, 16, 16,
+      GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
+  } else {
+    if (linearFiltering) {
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    } else {
+      glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_NEAREST);
+    }
+    glTexImage2D(GL_TEXTURE_2D, 0, 3, 16, 16, 0,
+      GL_RGB, GL_UNSIGNED_BYTE, floorTexture);
+  }
+}
+
+
+/* Draw a floor (possibly textured). */
+static void
+drawFloor(void)
+{
+  glDisable(GL_LIGHTING);
+
+  if (useTexture) {
+    glEnable(GL_TEXTURE_2D);
+  }
+
+  glBegin(GL_QUADS);
+    glTexCoord2f(0.0, 0.0);
+    glVertex3fv(floorVertices[0]);
+    glTexCoord2f(0.0, 16.0);
+    glVertex3fv(floorVertices[1]);
+    glTexCoord2f(16.0, 16.0);
+    glVertex3fv(floorVertices[2]);
+    glTexCoord2f(16.0, 0.0);
+    glVertex3fv(floorVertices[3]);
+  glEnd();
+
+  if (useTexture) {
+    glDisable(GL_TEXTURE_2D);
+  }
+
+  glEnable(GL_LIGHTING);
+}

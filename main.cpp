@@ -388,42 +388,6 @@ void myGameLevel(int& gamelevel)
 
  }
 
-/*void drawSnowMan() {
-
-// Set material properties
-	GLfloat qaBlack[] = {0.0, 0.0, 0.0, 1.0};
-	GLfloat qaGreen[] = {0.5, 0.0, 0.0, 1.0};
-	GLfloat qaWhite[] = {1.0, 1.0, 1.0, 1.0};
-	glMaterialfv(GL_FRONT_AND_BACK, GL_AMBIENT, qaGreen);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_DIFFUSE, qaGreen);
-	glMaterialfv(GL_FRONT_AND_BACK, GL_SPECULAR, qaWhite);
-	glMaterialf(GL_FRONT_AND_BACK, GL_SHININESS, 60.0);
-
-
-// Draw Body
- glTranslatef(0.0f ,0.75f, 0.0f);
- glutSolidSphere(0.75f,20,20);
-
-
-// Draw Head
- glTranslatef(0.0f, 1.0f, 0.0f);
- glutSolidSphere(0.25f,20,20);
-
-// Draw Eyes
- glPushMatrix();
- glColor3f(0.0f,0.0f,0.0f);
- glTranslatef(0.05f, 0.10f, 0.18f);
- glutSolidSphere(0.05f,10,10);
- glTranslatef(-0.1f, 0.0f, 0.0f);
- glutSolidSphere(0.05f,10,10);
- glPopMatrix();
-
-// Draw Nose
- glColor3f(1.0f, 0.5f , 0.5f);
- glRotatef(0.0f,1.0f, 0.0f, 0.0f);
- glutSolidCone(0.08f,0.5f,10,2);
-}
-*/
 void drawGrassBall(double x, double y, double z)
 {
     glutSolidSphere(0.5f,16,16);

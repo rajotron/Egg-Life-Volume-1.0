@@ -1,0 +1,13 @@
+# depslib dependency file v1.0
+1480317276 source:d:\0 amit thakur\openal1.1\myprograms\gl with al 4 ( egg vol. testing)\main.cpp
+	<cmath>
+	<GL/glut.h>
+	<cstdio>
+	<string>
+	<ctime>
+	<cstdlib>
+	<windows.h>
+	<AL/al.h>
+	<AL/alc.h>
+	<AL/alut.h>
+
